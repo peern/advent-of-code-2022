@@ -8,8 +8,7 @@ class RockPaperScissors(fileName: String = "day2_strategy_guide.txt") {
     private val plays: List<PlayRound>
 
     init {
-        val reader = getReaderFromResourceFile(fileName) ?: throw IllegalArgumentException("No file could be loaded")
-        this.plays = reader.lines().asSequence()
+        this.plays = getReaderFromResourceFile(fileName).lines().asSequence()
             .map { it.split(" ") }
             .map { PlayRound(HandShape.of(it[0]), RoundOutcome.of(it[1])) }
             .toList()
