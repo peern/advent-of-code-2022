@@ -4,6 +4,7 @@ import advent_of_code.day1.CaloryCounting
 import advent_of_code.day2.RockPaperScissors
 import advent_of_code.day3.RucksackReorganization
 import advent_of_code.day4.CampCleanup
+import advent_of_code.day5.SupplyStacks
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -36,6 +37,13 @@ internal class MainKtTest {
         val campCleanup = CampCleanup("day4_camp_cleanup.txt")
         assertEquals(466, campCleanup.getCountOfFullyContainedPairs())
         assertEquals(865, campCleanup.getCountOfOverlappingPairs())
+    }
+    
+    @Test
+    fun day5() {
+        val supplyStacks = SupplyStacks("day5_supply_stacks.txt")
+        supplyStacks.performRearrangementsPart1()
+        assertEquals("CWMTGHBDW", supplyStacks.getTopElements())
     }
 
 }
