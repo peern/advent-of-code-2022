@@ -3,10 +3,11 @@ import advent_of_code.day2.RockPaperScissors
 import advent_of_code.day3.RucksackReorganization
 import advent_of_code.day4.CampCleanup
 import advent_of_code.day5.SupplyStacks
+import advent_of_code.day6.TuningTrouble
 
 fun main(args: Array<String>) {
 
-    day5()
+    day6()
 
 
 }
@@ -40,3 +41,8 @@ fun day5() {
     print(supplyStacks.getTopElements())
 }
 
+fun day6() {
+    val tuningTrouble = TuningTrouble("day6_tuning_trouble.txt")
+    println(tuningTrouble.getAllCountsPartOne())
+    println(tuningTrouble.getAllCountsPartTwo())
+}
