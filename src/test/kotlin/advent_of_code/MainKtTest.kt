@@ -7,6 +7,7 @@ import advent_of_code.day4.CampCleanup
 import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
 import advent_of_code.day7.NoSpaceLeftOnDevice
+import advent_of_code.day8.TreetopTreeHouse
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -68,6 +69,43 @@ internal class MainKtTest {
 
         val noSpaceLeftOnDevice2 = NoSpaceLeftOnDevice("day7_no_space_left.txt")
         assertEquals(1300850, noSpaceLeftOnDevice2.findDirectoryToDelete()?.size)
+    }
+
+    @Test
+    fun day8() {
+        val treetopTreeHouse = TreetopTreeHouse()
+        assertTrue(treetopTreeHouse.isVisibleFromLeft(1, 1))
+        assertFalse(treetopTreeHouse.isVisibleFromRight(1, 1))
+        assertTrue(treetopTreeHouse.isVisibleFromRight(2, 1))
+        assertTrue(treetopTreeHouse.isVisibleFromRight(3, 2))
+        assertTrue(treetopTreeHouse.isVisibleFromRight(1, 2))
+
+        assertTrue(treetopTreeHouse.isVisibleFromTop(1, 1))
+        assertTrue(treetopTreeHouse.isVisibleFromTop(2, 1))
+        assertFalse(treetopTreeHouse.isVisibleFromTop(2, 2))
+        assertFalse(treetopTreeHouse.isVisibleFromTop(3, 3))
+
+        assertFalse(treetopTreeHouse.isVisibleFromBottom(1, 1))
+        assertTrue(treetopTreeHouse.isVisibleFromBottom(2, 3))
+
+        assertEquals(21, treetopTreeHouse.countVisibleTrees())
+
+        assertEquals(1, treetopTreeHouse.leftViewingDistance(2, 1))
+        assertEquals(2, treetopTreeHouse.leftViewingDistance(2, 3))
+        
+        assertEquals(2, treetopTreeHouse.rightViewingDistance(2, 1))
+        assertEquals(2, treetopTreeHouse.rightViewingDistance(2, 3))
+
+        assertEquals(2, treetopTreeHouse.downViewingDistance(2, 1))
+        assertEquals(1, treetopTreeHouse.downViewingDistance(2, 3))
+        
+        assertEquals(1, treetopTreeHouse.upViewingDistance(2, 1))
+        assertEquals(2, treetopTreeHouse.upViewingDistance(2, 3))
+        
+        assertEquals(8, treetopTreeHouse.findHighestScenicScore())
+
+        val treetopTreeHouse2 = TreetopTreeHouse("day8_tree_house.txt")
+        assertEquals(235200, treetopTreeHouse2.findHighestScenicScore())
     }
 
 }

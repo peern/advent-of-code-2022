@@ -5,10 +5,11 @@ import advent_of_code.day4.CampCleanup
 import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
 import advent_of_code.day7.NoSpaceLeftOnDevice
+import advent_of_code.day8.TreetopTreeHouse
 
 fun main(args: Array<String>) {
 
-    day7()
+    day8()
 
 
 }
@@ -50,10 +51,16 @@ fun day6() {
 
 fun day7() {
     val noSpaceLeftOnDevice = NoSpaceLeftOnDevice("day7_no_space_left.txt")
-//    val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
     println("SumOfFolderWithMaxSize 100000: ${noSpaceLeftOnDevice.getSumOfFolderWithMaxSize(100000)}")
     println("Used space: ${noSpaceLeftOnDevice.getUsedSpace()}")
     println("Unused space: ${noSpaceLeftOnDevice.getUnusedSpace()}")
     println("Necessary space for update: ${noSpaceLeftOnDevice.getNecessarySpaceForUpdate()}")
     println("Directory to delete: ${noSpaceLeftOnDevice.findDirectoryToDelete()}")
+}
+
+fun day8() {
+    val treetopTreeHouse = TreetopTreeHouse("day8_tree_house.txt")
+//    val treetopTreeHouse = TreetopTreeHouse()
+    println(treetopTreeHouse.findHighestScenicScore())
+    
 }
