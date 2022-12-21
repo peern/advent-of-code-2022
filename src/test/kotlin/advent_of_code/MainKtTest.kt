@@ -6,6 +6,7 @@ import advent_of_code.day3.RucksackReorganization
 import advent_of_code.day4.CampCleanup
 import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
+import advent_of_code.day7.NoSpaceLeftOnDevice
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -28,7 +29,7 @@ internal class MainKtTest {
     @Test
     fun day3() {
         val rucksackReorganization = RucksackReorganization("day3_rucksack.txt")
-        assertEquals(7824 , rucksackReorganization.sumOfPrioritiesOfItemsAppearingTwice())
+        assertEquals(7824, rucksackReorganization.sumOfPrioritiesOfItemsAppearingTwice())
         assertEquals(2798, rucksackReorganization.getBadgePrioritySum())
 
     }
@@ -39,23 +40,34 @@ internal class MainKtTest {
         assertEquals(466, campCleanup.getCountOfFullyContainedPairs())
         assertEquals(865, campCleanup.getCountOfOverlappingPairs())
     }
-    
+
     @Test
     fun day5() {
         val supplyStacks = SupplyStacks("day5_supply_stacks.txt")
         supplyStacks.performRearrangementsPart1()
         assertEquals("CWMTGHBDW", supplyStacks.getTopElements())
     }
-    
+
     @Test
     fun day6() {
         val tuningTrouble = TuningTrouble("day6_tuning_trouble_test.txt")
         assertEquals(listOf(7, 5, 6, 10, 11), tuningTrouble.getAllCountsPartOne())
-        assertEquals(listOf(19, 23, 23, 29,26), tuningTrouble.getAllCountsPartTwo())
+        assertEquals(listOf(19, 23, 23, 29, 26), tuningTrouble.getAllCountsPartTwo())
 
         val tuningTrouble2 = TuningTrouble("day6_tuning_trouble.txt")
         assertEquals(listOf(1779), tuningTrouble2.getAllCountsPartOne())
         assertEquals(listOf(2635), tuningTrouble2.getAllCountsPartTwo())
+    }
+
+    @Test
+    fun day7() {
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice("day7_no_space_left_test.txt")
+        assertEquals(95437, noSpaceLeftOnDevice.getSumOfFolderWithMaxSize(100000))
+        assertEquals("d", noSpaceLeftOnDevice.findDirectoryToDelete()?.name)
+        assertEquals(24933642, noSpaceLeftOnDevice.findDirectoryToDelete()?.size)
+
+        val noSpaceLeftOnDevice2 = NoSpaceLeftOnDevice("day7_no_space_left.txt")
+        assertEquals(1300850, noSpaceLeftOnDevice2.findDirectoryToDelete()?.size)
     }
 
 }

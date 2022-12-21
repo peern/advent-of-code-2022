@@ -4,10 +4,11 @@ import advent_of_code.day3.RucksackReorganization
 import advent_of_code.day4.CampCleanup
 import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
+import advent_of_code.day7.NoSpaceLeftOnDevice
 
 fun main(args: Array<String>) {
 
-    day6()
+    day7()
 
 
 }
@@ -45,4 +46,14 @@ fun day6() {
     val tuningTrouble = TuningTrouble("day6_tuning_trouble.txt")
     println(tuningTrouble.getAllCountsPartOne())
     println(tuningTrouble.getAllCountsPartTwo())
+}
+
+fun day7() {
+    val noSpaceLeftOnDevice = NoSpaceLeftOnDevice("day7_no_space_left.txt")
+//    val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+    println("SumOfFolderWithMaxSize 100000: ${noSpaceLeftOnDevice.getSumOfFolderWithMaxSize(100000)}")
+    println("Used space: ${noSpaceLeftOnDevice.getUsedSpace()}")
+    println("Unused space: ${noSpaceLeftOnDevice.getUnusedSpace()}")
+    println("Necessary space for update: ${noSpaceLeftOnDevice.getNecessarySpaceForUpdate()}")
+    println("Directory to delete: ${noSpaceLeftOnDevice.findDirectoryToDelete()}")
 }
