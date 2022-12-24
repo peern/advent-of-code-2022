@@ -6,12 +6,10 @@ import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
 import advent_of_code.day7.NoSpaceLeftOnDevice
 import advent_of_code.day8.TreetopTreeHouse
+import advent_of_code.day9.RopeBridge
 
 fun main(args: Array<String>) {
-
-    day8()
-
-
+    day9()
 }
 
 fun day1() {
@@ -62,5 +60,10 @@ fun day8() {
     val treetopTreeHouse = TreetopTreeHouse("day8_tree_house.txt")
 //    val treetopTreeHouse = TreetopTreeHouse()
     println(treetopTreeHouse.findHighestScenicScore())
-    
+}
+
+fun day9() {
+//    val ropeBridge = RopeBridge()
+    val ropeBridge = RopeBridge("day9_rope_bridge.txt")
+    println(ropeBridge.findTailPositions())
 }

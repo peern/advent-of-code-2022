@@ -8,6 +8,9 @@ import advent_of_code.day5.SupplyStacks
 import advent_of_code.day6.TuningTrouble
 import advent_of_code.day7.NoSpaceLeftOnDevice
 import advent_of_code.day8.TreetopTreeHouse
+import advent_of_code.day9.Grid
+import advent_of_code.day9.Point
+import advent_of_code.day9.RopeBridge
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -92,20 +95,72 @@ internal class MainKtTest {
 
         assertEquals(1, treetopTreeHouse.leftViewingDistance(2, 1))
         assertEquals(2, treetopTreeHouse.leftViewingDistance(2, 3))
-        
+
         assertEquals(2, treetopTreeHouse.rightViewingDistance(2, 1))
         assertEquals(2, treetopTreeHouse.rightViewingDistance(2, 3))
 
         assertEquals(2, treetopTreeHouse.downViewingDistance(2, 1))
         assertEquals(1, treetopTreeHouse.downViewingDistance(2, 3))
-        
+
         assertEquals(1, treetopTreeHouse.upViewingDistance(2, 1))
         assertEquals(2, treetopTreeHouse.upViewingDistance(2, 3))
-        
+
         assertEquals(8, treetopTreeHouse.findHighestScenicScore())
 
         val treetopTreeHouse2 = TreetopTreeHouse("day8_tree_house.txt")
         assertEquals(235200, treetopTreeHouse2.findHighestScenicScore())
+    }
+
+    @Test
+    fun day9() {
+        val ropeBridge = RopeBridge()
+        assertEquals(13, ropeBridge.findTailPositions())
+
+        val ropeBridge2 = RopeBridge("day9_rope_bridge.txt")
+        assertEquals(6023, ropeBridge2.findTailPositions())
+    }
+
+    @Test
+    fun day9_grid() {
+        val grid = Grid()
+
+        grid.headPos = Point(1, 1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(1, 0)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(1, -1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(0, -1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(-1, -1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(-1, 0)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(-1, 1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(0, -1)
+        assertFalse(grid.tailMoreThanOneBehind())
+
+
+        // assertTrue
+        grid.headPos = Point(2, 2)
+        assertTrue(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(2, 0)
+        assertTrue(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(2, -1)
+        assertTrue(grid.tailMoreThanOneBehind())
+
+        grid.headPos = Point(2, -2)
+        assertTrue(grid.tailMoreThanOneBehind())
     }
 
 }
