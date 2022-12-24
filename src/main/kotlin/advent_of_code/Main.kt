@@ -63,7 +63,7 @@ fun day8() {
 }
 
 fun day9() {
-//    val ropeBridge = RopeBridge()
     val ropeBridge = RopeBridge("day9_rope_bridge.txt")
-    println(ropeBridge.findTailPositions())
+    println(ropeBridge.findTailPositions2())
+
 }

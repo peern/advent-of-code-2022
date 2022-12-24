@@ -114,10 +114,14 @@ internal class MainKtTest {
     @Test
     fun day9() {
         val ropeBridge = RopeBridge()
-        assertEquals(13, ropeBridge.findTailPositions())
+        assertEquals(13, ropeBridge.findTailPositions1())
+        assertEquals(1, ropeBridge.findTailPositions2())
 
         val ropeBridge2 = RopeBridge("day9_rope_bridge.txt")
-        assertEquals(6023, ropeBridge2.findTailPositions())
+        assertEquals(6023, ropeBridge2.findTailPositions1())
+
+        val ropeBridge3 = RopeBridge("day9_rope_bridge_test2.txt")
+        assertEquals(36, ropeBridge3.findTailPositions2())
     }
 
     @Test

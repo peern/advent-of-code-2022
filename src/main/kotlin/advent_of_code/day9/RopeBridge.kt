@@ -4,8 +4,19 @@ import advent_of_code.getReaderFromResourceFile
 
 class RopeBridge(private val fileName: String = "day9_rope_bridge_test.txt") {
 
-    fun findTailPositions(): Int {
-        val grid = Grid()
+    fun findTailPositions1(): Int {
+        val grid = Grid(Rope(2))
+
+        getReaderFromResourceFile(fileName)
+            .lineSequence()
+            .map { it.split(" ") }
+            .forEach { grid.move(it[0], it[1].toInt()) }
+
+        return grid.getNumberOfTailPositions()
+    }
+
+    fun findTailPositions2(): Int {
+        val grid = Grid(Rope(10))
 
         getReaderFromResourceFile(fileName)
             .lineSequence()
@@ -34,11 +45,21 @@ class Rope(knotNumber: Int) {
         }
 }
 
-class Grid {
+class Grid(private val rope: Rope = Rope(10)) {
     private val markedTailPositions = mutableSetOf(Point(0, 0))
-    private var startPos = Point(0, 0)
-    var headPos = Point(0, 0)
-    private var tailPos = Point(0, 0)
+
+    var headPos: Point
+        get() = rope.head
+        set(value) {
+            rope.head = value
+        }
+
+    private var tailPos: Point
+        get() = rope.tail
+        set(value) {
+            rope.tail = value
+        }
+
 
     fun move(direction: String, steps: Int) {
         for (i in 1..steps) {
@@ -48,8 +69,20 @@ class Grid {
                 "L" -> moveHeadOneLeft()
                 "D" -> moveHeadOneDown()
             }
-            if (tailMoreThanOneBehind()) {
-                moveTailOneTowardsHead()
+
+            for (j in 0 until rope.knots.size) {
+                if (j + 1 >= rope.knots.size) {
+                    // check if this is the tail element and if yes add to marked positions
+                    markedTailPositions.add(rope.tail)
+                    break
+                }
+
+                val trailing = rope.knots[j + 1]
+                val leading = rope.knots[j]
+                if (trailingMoreThanOneBehind(trailing, leading)) {
+                    val updatedTrailingPos = moveTrailingOneTowardsLeading(trailing, leading)
+                    rope.knots[j + 1] = updatedTrailingPos
+                }
             }
         }
     }
@@ -79,44 +112,13 @@ class Grid {
     }
 
     private fun moveTailOneTowardsHead() {
-        // no move necessary when tail too close
-        if (!tailMoreThanOneBehind()) {
-            return
-        }
-
-        var updatedTailPos = tailPos
-
-        if (headPos.x == tailPos.x) {
-            // head and tail are in same row
-            val step = if (headPos.y > tailPos.y) 1 else -1
-            updatedTailPos = Point(tailPos.x, tailPos.y + step)
-
-        } else if (headPos.y == tailPos.y) {
-            // head and tail are in same column
-            val step = if (headPos.x > tailPos.x) 1 else -1
-            updatedTailPos = Point(tailPos.x + step, tailPos.y)
-
-        } else if (headPos.x > tailPos.x && headPos.y > tailPos.y) {
-            // head is top right from tail
-            updatedTailPos = Point(tailPos.x + 1, tailPos.y + 1)
-        } else if (headPos.x > tailPos.x && headPos.y < tailPos.y) {
-            // head is down right from tail
-            updatedTailPos = Point(tailPos.x + 1, tailPos.y - 1)
-        } else if (headPos.x < tailPos.x && headPos.y > tailPos.y) {
-            // head is top left from tail
-            updatedTailPos = Point(tailPos.x - 1, tailPos.y + 1)
-        } else if (headPos.x < tailPos.x && headPos.y < tailPos.y) {
-            // head is down left from tail
-            updatedTailPos = Point(tailPos.x - 1, tailPos.y - 1)
-        }
-
-        tailPos = updatedTailPos
-        markedTailPositions.add(updatedTailPos)
+        tailPos = moveTrailingOneTowardsLeading(tailPos, headPos)
+        markedTailPositions.add(tailPos)
     }
 
-    private fun moveTrailingOneTowardsLeading(leading: Point, trailing: Point): Point {
+    private fun moveTrailingOneTowardsLeading(trailing: Point, leading: Point): Point {
         // no move necessary when tail too close
-        if (!trailingMoreThanOneBehind(leading, trailing)) {
+        if (!trailingMoreThanOneBehind(trailing, leading)) {
             return trailing
         }
 
@@ -149,7 +151,7 @@ class Grid {
         return updatedTrailingPos
     }
 
-    fun trailingMoreThanOneBehind(leading: Point, trailing: Point): Boolean {
+    private fun trailingMoreThanOneBehind(trailing: Point, leading: Point): Boolean {
         val deltaX = leading.x - trailing.x
         val deltaY = leading.y - trailing.y
 
